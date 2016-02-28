@@ -1,0 +1,2 @@
+# Etturimang
+Projekt seoses etturitega.
