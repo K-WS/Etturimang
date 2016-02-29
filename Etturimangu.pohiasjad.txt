@@ -102,6 +102,9 @@ Esimene for-tsükkel käsitleks read, teine for-tsükkel reasisesed elemendid.
 	7) Kui ühel poolel pole enam ettureid või teine pool saab endale lipu, lõppeb
 	   mäng ära.
 
+	8) Kui malend on valitud, siis programm kontrollib kõik võimalikud liigutused(äärepealsete malendite puhul ei tohiks
+	olla võimalik sellel väljapoole väljakut rünnata, seega veateate vältimiseks tuleks midagi teha, et ta ei läheks listidest
+	välja kontrolli käigus). Juhul, kui malendiga pole midagi võimalik teha, annab programm sellest teada ja lubab uue malendi valida.
 
 
 
