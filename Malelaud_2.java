@@ -1,0 +1,63 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+
+public class Malelaud_2 {
+	
+	HashMap<String, ArrayList<String>> laud;
+	
+	Malelaud_2() {
+		laud = create();
+	}
+	
+	HashMap<String, ArrayList<String>> create(){
+	ArrayList<String> malerida = new ArrayList<>();
+	malerida.addAll(Arrays.asList(" ", "v", " ", " ", " ", " ", "m", " "));
+		
+	HashMap <String,ArrayList<String>> Malelauakatse = new HashMap<>();
+	
+	ArrayList<String> Rida_1 = new ArrayList<>(malerida);
+	ArrayList<String> Rida_2 = new ArrayList<>(malerida);
+	ArrayList<String> Rida_3 = new ArrayList<>(malerida);
+	ArrayList<String> Rida_4 = new ArrayList<>(malerida);
+	ArrayList<String> Rida_5 = new ArrayList<>(malerida);
+	ArrayList<String> Rida_6 = new ArrayList<>(malerida);
+	ArrayList<String> Rida_7 = new ArrayList<>(malerida);
+	ArrayList<String> Rida_8 = new ArrayList<>(malerida);
+
+	
+		Malelauakatse.put("A", Rida_1);
+		Malelauakatse.put("B", Rida_2);
+		Malelauakatse.put("C", Rida_3);
+		Malelauakatse.put("D", Rida_4);
+		Malelauakatse.put("E", Rida_5);
+		Malelauakatse.put("F", Rida_6);
+		Malelauakatse.put("G", Rida_7);
+		Malelauakatse.put("H", Rida_8);
+		return Malelauakatse;
+	}
+	public String toString(){
+		ArrayList<String> tahehoius = new ArrayList<>();
+		tahehoius.addAll(Arrays.asList("A","B","C","D","E","F","G","H"));
+		
+		String nr = "   8|7|6|5|4|3|2|1\n";
+		for(String x : tahehoius){
+			for(int i = 0; i<8; i++){
+				if (i==0) nr += x+" |";
+				if (laud.get(x).get(i) != " ") nr += laud.get(x).get(i)+"|";
+				else nr += "-|";
+				if (i==7) nr += "\n";
+			}
+		}		
+		return nr;
+	}
+	public void liigutus(String kask){
+		String th1 = Character.toString(kask.charAt(0));
+		int nr1 = Character.getNumericValue(kask.charAt(1));
+		String th2 = Character.toString(kask.charAt(2));
+		int nr2 = Character.getNumericValue(kask.charAt(3));
+		
+		
+	}
+	
+}
