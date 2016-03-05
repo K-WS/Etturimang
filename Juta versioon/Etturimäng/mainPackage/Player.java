@@ -12,7 +12,7 @@ public class Player {
 	
 	public String color;
 	
-	Player(String col) 
+	public Player(String col) 
 	{
 		pawnsLeft = 8;
 		points = 0;

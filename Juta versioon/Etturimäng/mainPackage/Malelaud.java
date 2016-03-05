@@ -9,7 +9,7 @@ public class Malelaud {
 	HashMap<String, ArrayList<String>> laud;
 	public ArrayList<String> tahehoius = new ArrayList<>();
 	
-	Malelaud() {
+	public Malelaud() {
 		laud = create();
 		tahehoius.addAll(Arrays.asList("A","B","C","D","E","F","G","H"));
 	}
