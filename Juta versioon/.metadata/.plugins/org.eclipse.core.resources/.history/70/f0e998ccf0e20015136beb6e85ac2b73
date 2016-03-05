@@ -1,0 +1,26 @@
+package mainPackage;
+
+public class Player {
+	
+	private int pawnsLeft;
+		public int getPawnsLeft() 
+		{ 
+			return pawnsLeft; 
+		}
+	
+	private int points;
+	
+	private String color;
+	
+	Player(String color) 
+	{
+		this.pawnsLeft = 8;
+		this.points = 0;
+		this.color = color;
+	}
+	
+	
+	
+	
+	
+}
