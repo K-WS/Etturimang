@@ -1,0 +1,29 @@
+package mainPackage;
+import java.util.HashMap;
+
+public class Referee {
+
+	Object gameBoard;
+	Object whitePlayer;
+	Object blackPlayer;
+	
+	public Referee(Object board, Object white, Object black ){
+		gameBoard = board;
+		whitePlayer = white;
+		blackPlayer = black;
+	}
+	
+	private static boolean isCorrectFormat(String input){
+		if (input.length() != 4) return false; 
+		else if (!input.matches("[a-hA-h]\\d[a-hA-h]\\d")) return false;
+		return true;
+	}
+	
+	public boolean AssessMaster(String input) 
+	{
+		
+		if (!isCorrectFormat(input)) return false;
+		//else if () return false;
+		else return true;
+	}
+}

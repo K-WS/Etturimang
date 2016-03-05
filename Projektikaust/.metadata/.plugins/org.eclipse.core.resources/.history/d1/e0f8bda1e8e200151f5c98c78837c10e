@@ -1,0 +1,17 @@
+package unitTests;
+import mainPackage.Referee;
+import mainPackage.Malelaud_2;
+import mainPackage.Player;
+
+public class RefUnitTest {
+
+	public static void main(String[] args) {
+		Malelaud_2 brd = new Malelaud_2();
+		Player w = new Player();
+		Player b = new Player();
+		
+		Referee ref = new Referee(brd, w, b);
+		System.out.println(ref.Assess("A2A4"));
+	}
+
+}

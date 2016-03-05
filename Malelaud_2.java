@@ -1,3 +1,5 @@
+package mainPackage;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -6,7 +8,11 @@ public class Malelaud_2 {
 	
 	HashMap<String, ArrayList<String>> laud;
 	
-	Malelaud_2() {
+	public ArrayList<String> tahehoius = new ArrayList<>();
+	
+	
+	public Malelaud_2() {
+		tahehoius.addAll(Arrays.asList("A","B","C","D","E","F","G","H"));
 		laud = create();
 	}
 	
@@ -37,8 +43,6 @@ public class Malelaud_2 {
 		return Malelauakatse;
 	}
 	public String toString(){
-		ArrayList<String> tahehoius = new ArrayList<>();
-		tahehoius.addAll(Arrays.asList("A","B","C","D","E","F","G","H"));
 		
 		String nr = "   8|7|6|5|4|3|2|1\n";
 		for(String x : tahehoius){
@@ -57,7 +61,10 @@ public class Malelaud_2 {
 		String th2 = Character.toString(kask.charAt(2));
 		int nr2 = Character.getNumericValue(kask.charAt(3));
 		
-		
+	
 	}
 	
+	public String getPawn(String k, int v){
+		return laud.get(k).get(v);
+	}	
 }

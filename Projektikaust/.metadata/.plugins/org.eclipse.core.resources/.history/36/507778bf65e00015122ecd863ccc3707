@@ -1,0 +1,11 @@
+package unitTests;
+import
+
+public class RefUnitTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Referee ref = new Referee();
+	}
+
+}

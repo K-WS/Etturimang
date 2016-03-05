@@ -1,0 +1,20 @@
+package mainPackage;
+
+public class Player {
+	
+	byte pawnsLeft = 8;
+	int points = 0; 
+	
+	boolean pawnKilled()
+	{
+		pawnsLeft -= 1;
+		if (pawnsLeft == 0) return true;
+		return false;
+	};
+	
+	void wonTheMatch() 
+	{
+		points++;
+	}
+	
+}

@@ -1,0 +1,19 @@
+package unitTests;
+import mainPackage.Referee;
+import mainPackage.Malelaud_2;
+
+public class RefUnitTest {
+	
+	void RefUnitTest(){}
+
+	public static void main(String[] args) {
+		Malelaud_2 brd = new Malelaud_2();
+		Object w = new Object();
+		Object b = new Object();
+		
+		Referee ref = new Referee(brd, w, b);
+		System.out.println(ref.AssessMaster("A2A2"));
+		System.out.println(Character.getNumericValue("234".charAt(0)));
+	}
+
+}

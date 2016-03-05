@@ -1,0 +1,47 @@
+package mainPackage;
+import java.util.Random;
+
+public class Referee {
+
+	Object gameBoard;
+	Object whitePlayer;
+	Object blackPlayer;
+	byte gameNr;
+	byte turn;
+	
+	public Referee(Object board, Object white, Object black ){
+		gameBoard = board;
+		whitePlayer = white;
+		blackPlayer = black;
+		gameNr = 0;
+		turn = (byte)new Random().nextInt(1);
+	}
+	
+	private boolean isCorrectFormat(String input){
+		if (input.length() != 4) return false; 
+		else if (!input.matches("[a-hA-H][1-8][a-hA-H][1-8]")) return false;
+		else if (input.charAt(0) == input.charAt(2) && input.charAt(1) == input.charAt(3)) return false;
+		return true;
+	}
+	
+	private boolean isMyPawn(String input)
+	{
+		Object pList; 
+		
+		switch (turn)
+		{
+			case 0: pList = blackPlayer; break;
+			case 1: pList = whitePlayer; break;
+		}
+		
+		return true;
+	}
+	
+	public boolean AssessMaster(String input) 
+	{
+		
+		if (!isCorrectFormat(input)) return false;
+		else if (!isMyPawn(input)) return false;
+		else return true;
+	}
+}

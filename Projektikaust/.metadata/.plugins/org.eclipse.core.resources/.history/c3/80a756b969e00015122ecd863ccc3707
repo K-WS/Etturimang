@@ -1,0 +1,7 @@
+package mainPackage;
+
+public class Player {
+	
+	byte pawnsLeft = 8;
+	
+}
