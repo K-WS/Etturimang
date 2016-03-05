@@ -1,8 +1,0 @@
-package mainPackage;
-
-public class Player {
-	
-	byte pawnsLeft = 8;
-	int points = 0;
-	
-}
