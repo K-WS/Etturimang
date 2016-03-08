@@ -9,7 +9,7 @@ public class Referee {
 	byte gameNr, turn;
 	String color, th1, th2, lastMove;
 	int nr1, nr2;
-	boolean endReached = false, enPassant;
+	boolean endReached = false, enPassant = false;
 	
 	//Konstruktor
 	public Referee(Malelaud board, Player white, Player black ){
@@ -17,7 +17,7 @@ public class Referee {
 		whitePlayer = white;
 		blackPlayer = black;
 		gameNr = 0;
-		turn = 1;//(byte)new Random().nextInt(2);
+		turn = 0;//(byte)new Random().nextInt(2);
 		switch (turn)
 		{
 			case 0: color = "m"; break;
@@ -55,7 +55,7 @@ public class Referee {
 				 &&	Math.abs(letterVal(c2s(lastMove, 2)) - letterVal(th1)) == 1)
 			{
 				if ((turn==1 && nr1 - c2i(lastMove, 3) == 1) ||
-					(turn==0 && c2i(lastMove, 3) - nr1 == 1))		enPassant = true;
+					(turn==1 && c2i(lastMove, 3) - nr1 == 1))		enPassant = true;
 			}
 	}
 	//
@@ -70,20 +70,20 @@ public class Referee {
 	//Seejärel kontrollitakse, kas vaadeldav ettur on käiva mängija oma. 
 	private boolean isMyPawn()
 	{				
-		if (gameBoard.getPawn(th1, nr1-1) != color) {say("Käia tohib ainult oma etturiga. Teie omad on tähistatud "+color+"-tähega.");return false;}
+		if (gameBoard.getPawn(th1, nr1) != color) {say("Käia tohib ainult oma etturiga. Teie omad on tähistatud "+color+"-tähega.");return false;}
 		return true;
 	}
 	//
 	//Siis kontrollitakse, kas sihtruudul juba on sama värvi ettur.
 	private boolean isSquareOccupied(){
-		String square = gameBoard.getPawn(th2, nr2-1);
+		String square = gameBoard.getPawn(th2, nr2);
 		if (square == color) {say("Sihtruudul juba on teie ettur.");return true;} 
 		return false;
 	}
 	//
 	//Tehakse kindlaks, kas tegemist on rünnaku või tavalise liikumisega. 
 	private boolean isAttackMove(){
-		String square = gameBoard.getPawn(th2, nr2-1);		
+		String square = gameBoard.getPawn(th2, nr2);		
 		if (square != " ") return true;
 		return false;
 	}
@@ -95,13 +95,13 @@ public class Referee {
 		
 		
 		if (turn == 0 && 
-				((!enPassant && nr2 > nr1) && nr1-nr2 == 1))
+				((!enPassant && nr1 < nr2 && nr2-nr1 == 1) || (enPassant && nr2 < nr1 && nr1-nr2 == 1)))
 		{
 			if (whitePlayer.getPawnsLeft()==0) {endReached = true; blackPlayer.wonTheMatch();}
 			return true;
 		}
 		if (turn == 1 && 
-				((!enPassant && nr2 > nr1) && nr2-nr1 == 1)) 
+				((!enPassant && nr2 < nr1 && nr1-nr2 == 1) || (enPassant && nr1 < nr2 && nr2-nr1 == 1)))
 		{
 			if (blackPlayer.getPawnsLeft()==0) {endReached = true; whitePlayer.wonTheMatch();}
 			return true;
@@ -116,19 +116,19 @@ public class Referee {
 		if (letterVal(th1)!=letterVal(th2)) {say("Ründamata saab käia ainult sirgjooneliselt.");return false; }
 		
 		if (turn == 0 && (
-				nr1 > nr2 && (
-						(nr2 != 1 && nr1-nr2 == 1) || nr1-nr2 <= 2) )) 
+				nr2 > nr1 && (
+						(nr2 != 1 && nr2-nr1 == 1) || nr2-nr1 <= 2) )) 
 		{
-			if (nr2 == 0) endReached = true;
+			if (nr2 == 8) endReached = true;
 			blackPlayer.wonTheMatch();
 			return true;
 		}
 		
 		if (turn == 1 && (
-				nr2 > nr1 && (
-						(nr1 != 1 && nr2-nr1 == 1) || nr2-nr1 <= 2) )) 
+				nr1 > nr2 && (
+						(nr1 != 1 && nr1-nr2 == 1) || nr1-nr2 <= 2) )) 
 		{
-			if (nr2 == 7) endReached = true;
+			if (nr2 == 1) endReached = true;
 			whitePlayer.wonTheMatch();
 			return true;
 		}

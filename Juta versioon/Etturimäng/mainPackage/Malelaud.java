@@ -66,6 +66,6 @@ public class Malelaud {
 	
 	public String getPawn(String th, int nr) 
 	{ 
-		return laud.get(th).get(nr); 
+		return laud.get(th).get(Math.abs(nr-8)); 
 	}
 }

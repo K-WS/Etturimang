@@ -11,7 +11,6 @@ public class Referee_UnitTest {
 		Player b = new Player("m");
 		
 		Referee ref = new Referee(brd, w, b);
-		System.out.println(ref.Assess("A2B2"));
+		System.out.println(ref.Assess("H5B4"));
 	}
-
 }
