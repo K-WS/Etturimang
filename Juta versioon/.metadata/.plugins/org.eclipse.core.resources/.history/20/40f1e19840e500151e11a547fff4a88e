@@ -3,11 +3,9 @@ import java.util.Random;
 
 public class Referee {
 
-	// Kohtunikul on viited malelauale ja mängijatele; 
+	// Kohtunikul on viited malelauale ja mängijatele
 	Malelaud gameBoard;
 	Player whitePlayer, blackPlayer;
-	
-	// Samuti haldab see klass muutuvaid mänguparameetreid (v.a laua seisund)
 	byte gameNr, turn;
 	String color, th1, th2, lastMove;
 	int nr1, nr2;
@@ -28,7 +26,7 @@ public class Referee {
 	}
 	
 	
-	////Mõned lühendatud nimetusega teisendusmeetodid
+	////Mõned lühendatud teisendusmeetodid
 	//
 	//char-2-String teisendus
 	private String c2s(String str, int i){
@@ -63,7 +61,7 @@ public class Referee {
 	//
 	//Kõigepealt kontrollitakse sisendi süntaktilist korrektsust
 	private boolean isCorrectFormat(String input){
-		if (input.length() != 4) {say("Sisendi pikkus peab olema täpselt 4 märki! "); return false; }
+		if (input.length() != 4) return false; 
 		else if (!input.matches("[a-hA-H][1-8][a-hA-H][1-8]")) {say("Sisend ebakorrektne!");return false;}
 		else if (input.charAt(0) == input.charAt(2) && input.charAt(1) == input.charAt(3)) {say("Ei tohi käia samale ruudule!");return false;}
 		return true;
@@ -145,23 +143,17 @@ public class Referee {
 	//Kui kontrolli käigus üks samm nurjub, siis ei ole käik võimalik. 
 	public boolean Assess(String input) 
 	{
-		
-		//Lollusevastane kontroll
-		if (!isCorrectFormat(input)) return false; 
-		
-		//Sisendi lahtimõtestamine
 		th1 = c2s(input, 0);
 		nr1 = c2i(input, 1);
 		th2 = c2s(input, 2);
 		nr2 = c2i(input, 3);
 		
-		//Näpuvigade-vastane kontroll
-		if(!isMyPawn() || isSquareOccupied()) return false;
-		
-		//Erandikontroll
 		if (lastMove != null) checkEnPassant();
 		
-		//Reeglitundmise kontroll
+		if (!isCorrectFormat(input) || 
+			!isMyPawn() || 
+			isSquareOccupied()) return false;
+		
 		if (isAttackMove() && isLegalAttack()) 
 		{
 			//TODO!
@@ -186,7 +178,6 @@ public class Referee {
 	
 	public void nextTurn(){
 		turn = (byte)((turn + 1) % 2);
-		enPassant = false;
 		switch (turn)
 		{
 			case 0: color = "m"; break;

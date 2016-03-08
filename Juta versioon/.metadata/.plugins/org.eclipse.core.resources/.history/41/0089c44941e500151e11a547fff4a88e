@@ -3,11 +3,9 @@ import java.util.Random;
 
 public class Referee {
 
-	// Kohtunikul on viited malelauale ja mängijatele; 
+	// Kohtunikul on viited malelauale ja mängijatele
 	Malelaud gameBoard;
 	Player whitePlayer, blackPlayer;
-	
-	// Samuti haldab see klass muutuvaid mänguparameetreid (v.a laua seisund)
 	byte gameNr, turn;
 	String color, th1, th2, lastMove;
 	int nr1, nr2;
@@ -28,7 +26,7 @@ public class Referee {
 	}
 	
 	
-	////Mõned lühendatud nimetusega teisendusmeetodid
+	////Mõned lühendatud teisendusmeetodid
 	//
 	//char-2-String teisendus
 	private String c2s(String str, int i){
@@ -186,7 +184,6 @@ public class Referee {
 	
 	public void nextTurn(){
 		turn = (byte)((turn + 1) % 2);
-		enPassant = false;
 		switch (turn)
 		{
 			case 0: color = "m"; break;

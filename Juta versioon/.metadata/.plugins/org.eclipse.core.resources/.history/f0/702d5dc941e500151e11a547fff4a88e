@@ -3,11 +3,9 @@ import java.util.Random;
 
 public class Referee {
 
-	// Kohtunikul on viited malelauale ja mängijatele; 
+	// Kohtunikul on viited malelauale ja mängijatele
 	Malelaud gameBoard;
 	Player whitePlayer, blackPlayer;
-	
-	// Samuti haldab see klass muutuvaid mänguparameetreid (v.a laua seisund)
 	byte gameNr, turn;
 	String color, th1, th2, lastMove;
 	int nr1, nr2;
