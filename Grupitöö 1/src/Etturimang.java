@@ -21,10 +21,12 @@ public class Etturimang {
 			boolean praegune_mang = true;
 			//While tsükkel, mis kestab niikaua, kuni mäng saab läbi
 			while(praegune_mang){
+				
 
 				//While tsükkel, mis kestab niikaua, kui mängija pole oma käiku sisestanud.
 				while(kaik == 1){System.out.println("Sisesta käik, valge ");
 				String a = sc.nextLine().toUpperCase();
+				if(a == "Restart"){malelaud.restart();break;}
 				boolean b = ref.Assess(a);
 				if (b==true){
 					malelaud.liigutus(a);
