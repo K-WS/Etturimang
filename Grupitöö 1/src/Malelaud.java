@@ -15,7 +15,7 @@ public class Malelaud {
 	
 	HashMap<String, ArrayList<String>> create(){
 	ArrayList<String> malerida = new ArrayList<>();
-	malerida.addAll(Arrays.asList(" ", "m", " ", " ", " ", " ", "v", " "));
+	malerida.addAll(Arrays.asList(" ", "v", " ", " ", " ", " ", "m", " "));
 		
 	HashMap <String,ArrayList<String>> Malelauakatse = new HashMap<>();
 	
@@ -56,23 +56,38 @@ public class Malelaud {
 	
 	public void liigutus(String kask){
 		String th1 = Character.toString(kask.charAt(0));
-		int nr1 = Character.getNumericValue(kask.charAt(1));
+		int nr1 = Math.abs(Character.getNumericValue(kask.charAt(1)) -8);
 		String th2 = Character.toString(kask.charAt(2));
-		int nr2 = Character.getNumericValue(kask.charAt(3));
+		int nr2 = Math.abs(Character.getNumericValue(kask.charAt(3))-8);
+		
+		
+		String p = laud.get(th1).get(nr1);
+		laud.get(th1).set(nr1," ");
+		laud.get(th2).set(nr2, p);
+		
+		System.out.println(toString());
+		
 		
 		
 	}
 	
 	public String getPawn(String th, int nr) 
 	{ 
-		return laud.get(th).get(nr-8); 
+		return laud.get(th).get(Math.abs(nr-8)); 
 	}
 	
 	
 	public void restart(){
 		for(int i = 0; i<8; i++){
-			
-			
+			/*Malelauakatse.put("A", Rida_1);
+			Malelauakatse.put("B", Rida_2);
+			Malelauakatse.put("C", Rida_3);
+			Malelauakatse.put("D", Rida_4);
+			Malelauakatse.put("E", Rida_5);
+			Malelauakatse.put("F", Rida_6);
+			Malelauakatse.put("G", Rida_7);
+			Malelauakatse.put("H", Rida_8);
+			*/
 		}
 	}
 }

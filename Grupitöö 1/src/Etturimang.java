@@ -24,19 +24,32 @@ public class Etturimang {
 
 				//While tsükkel, mis kestab niikaua, kui mängija pole oma käiku sisestanud.
 				while(kaik == 1){System.out.println("Sisesta käik, valge ");
-				String a = sc.nextLine();
+				String a = sc.nextLine().toUpperCase();
 				boolean b = ref.Assess(a);
 				if (b==true){
-					String[] c = a.split("");
-					
+					malelaud.liigutus(a);
+					kaik = 0;
+					ref.nextTurn();
+
 				}
 				}
+				//Teine While tsükkel, mis kestab niikaua, kui mängija pole oma käiku sisestanud.
 				while(kaik == 0){System.out.println("Sisesta käik, must ");
+				String a = sc.nextLine().toUpperCase();
+				boolean b = ref.Assess(a);
+				if (b==true){
+					malelaud.liigutus(a);
+					kaik = 1;
+					ref.nextTurn();
+
+				}
+				praegune_mang = !ref.gameOver();
 				
 				}
 				
 				System.out.println(malelaud);
 			}
+			System.out.println("Valge lõpp-punktid: "+valge.getPoints()+", Musta lõpp-punktid: "+must.getPoints());
 			System.out.println("Kas soovid edasi mängida? (jah/ei)");
 			boolean onVastus = true;
 			while(onVastus){
@@ -44,25 +57,6 @@ public class Etturimang {
 				if(arg.equals("jah")){onVastus = false;}
 				//tee klassi Malelaud uus meetod, mis "restardib" malendite ja laua algseisu, ja kasuta seda siin arg.equals("jah") korral.
 				else if(arg.equals("ei")){onVastus = false; kas_mangid_edasi = false;}}
-		}
-		
-
-		
-				//While tsükkel, mis kestab niikaua, kui mängija pole oma käiku sisestanud.
-		
-			
-		
-
-
-			
-			malelaud.laud.get("C").remove(1);
-			malelaud.laud.get("C").add(1," ");
-			malelaud.laud.get("C").remove(1+2);
-			malelaud.laud.get("C").add(1+2, "m");
-			System.out.println(malelaud.toString());
-
-			
-			
+		}		
 	}
-
 }

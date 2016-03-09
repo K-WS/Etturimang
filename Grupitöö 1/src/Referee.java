@@ -18,7 +18,7 @@ public class Referee {
 		whitePlayer = white;
 		blackPlayer = black;
 		gameNr = 0;
-		turn = (byte)new Random().nextInt(2);
+		turn = 1;
 		switch (turn)
 		{
 			case 0: color = "m"; break;
