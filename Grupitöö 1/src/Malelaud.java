@@ -1,57 +1,78 @@
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class Malelaud {
-	//8-elemendiline rida
-	private char a1;
-	private char a2;
-	private char a3;
-	private char a4;
-	private char a5;
-	private char a6;
-	private char a7;
-	private char a8;
 	
-	//Get ja Set
-	public char getA1() {return a1;}
-	public void setA1(char a1) {this.a1 = a1;}
-	public char getA2() {return a2;}
-	public void setA2(char a2) {this.a2 = a2;}
-	public char getA3() {return a3;}
-	public void setA3(char a3) {this.a3 = a3;}
-	public char getA4() {return a4;}
-	public void setA4(char a4) {this.a4 = a4;}
-	public char getA5() {return a5;}
-	public void setA5(char a5) {this.a5 = a5;}
-	public char getA6() {return a6;}
-	public void setA6(char a6) {this.a6 = a6;}
-	public char getA7() {return a7;}
-	public void setA7(char a7) {this.a7 = a7;}
-	public char getA8() {return a8;}
-	public void setA8(char a8) {this.a8 = a8;}
+	HashMap<String, ArrayList<String>> laud;
+	public ArrayList<String> tahehoius = new ArrayList<>();
 	
-	//Konstruktor
-	public Malelaud(char a1, char a2, char a3, char a4, char a5, char a6, char a7, char a8) {
-		super();
-		this.a1 = a1;
-		this.a2 = a2;
-		this.a3 = a3;
-		this.a4 = a4;
-		this.a5 = a5;
-		this.a6 = a6;
-		this.a7 = a7;
-		this.a8 = a8;
-		
-	//To-string on vist ebavajalik
+	public Malelaud() {
+		laud = create();
+		tahehoius.addAll(Arrays.asList("A","B","C","D","E","F","G","H"));
 	}
-	//Kõikide 8 Listi hoidmiseks peaks siis saama äkki:
-	//ArrayList<Malelaud> Laud = new ArrayList<Malelaud>();
 	
-	//ja idee põhjal siis nt tühja rea loomine peaklassis oleks:
-	//Malelaud Rida_1 = new Malelaud("-","-","-","-","-","-","-","-");
-	//Laud.add(Rida_1);
+	HashMap<String, ArrayList<String>> create(){
+	ArrayList<String> malerida = new ArrayList<>();
+	malerida.addAll(Arrays.asList(" ", "m", " ", " ", " ", " ", "v", " "));
+		
+	HashMap <String,ArrayList<String>> Malelauakatse = new HashMap<>();
 	
-	//Teine ja seitmes rida oleksid erandlikud, musta (m) ja valge (v) nuppude jaoks.
-	//kuid kas siis eraldi klassis tuleb anda nendele funktsioonid... või äkki peaklassis?
+	ArrayList<String> Rida_1 = new ArrayList<>(malerida);
+	ArrayList<String> Rida_2 = new ArrayList<>(malerida);
+	ArrayList<String> Rida_3 = new ArrayList<>(malerida);
+	ArrayList<String> Rida_4 = new ArrayList<>(malerida);
+	ArrayList<String> Rida_5 = new ArrayList<>(malerida);
+	ArrayList<String> Rida_6 = new ArrayList<>(malerida);
+	ArrayList<String> Rida_7 = new ArrayList<>(malerida);
+	ArrayList<String> Rida_8 = new ArrayList<>(malerida);
 
-
+	
+		Malelauakatse.put("A", Rida_1);
+		Malelauakatse.put("B", Rida_2);
+		Malelauakatse.put("C", Rida_3);
+		Malelauakatse.put("D", Rida_4);
+		Malelauakatse.put("E", Rida_5);
+		Malelauakatse.put("F", Rida_6);
+		Malelauakatse.put("G", Rida_7);
+		Malelauakatse.put("H", Rida_8);
+		return Malelauakatse;
+	}
+	
+	public String toString(){
+		
+		String nr = "   8|7|6|5|4|3|2|1\n";
+		for(String x : tahehoius){
+			for(int i = 0; i<8; i++){
+				if (i==0) nr += x+" |";
+				if (laud.get(x).get(i) != " ") nr += laud.get(x).get(i)+"|";
+				else nr += "-|";
+				if (i==7) nr += "\n";
+			}
+		}		
+		return nr;
+	}
+	
+	public void liigutus(String kask){
+		String th1 = Character.toString(kask.charAt(0));
+		int nr1 = Character.getNumericValue(kask.charAt(1));
+		String th2 = Character.toString(kask.charAt(2));
+		int nr2 = Character.getNumericValue(kask.charAt(3));
+		
+		
+	}
+	
+	public String getPawn(String th, int nr) 
+	{ 
+		return laud.get(th).get(nr-8); 
+	}
+	
+	
+	public void restart(){
+		for(int i = 0; i<8; i++){
+			
+			
+		}
+	}
 }

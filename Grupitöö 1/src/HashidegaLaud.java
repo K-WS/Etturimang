@@ -8,7 +8,7 @@ public class HashidegaLaud {
 		HashMap <String,ArrayList<String>> Malelauakatse = new HashMap<>();
 		ArrayList<String> Rida_1 = new ArrayList<>();
 		for(int i=0; i<8;i++){
-			if(i== 1){Rida_1.add(i, "v");}
+			if(i == 1){Rida_1.add(i, "v");}
 			else if(i==6){Rida_1.add(i, "m");}
 			else{Rida_1.add(i, "-");}
 		}

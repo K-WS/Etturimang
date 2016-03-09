@@ -1,0 +1,142 @@
+﻿1. Otsustada, kuidas ekraanile kuvada mängu seisu:
+	1)Maatriks
+	 -----------------
+       	1|-|-|-|-|-|-|-|-|
+	2|m|m|m|m|m|m|m|m|
+	3|-|-|-|-|-|-|-|-|
+	4|-|-|-|-|-|-|-|-|
+	5|-|-|-|-|-|-|-|-|
+	6|-|-|-|-|-|-|-|-|
+	7|v|v|v|v|v|v|v|v|
+	8|-|-|-|-|-|-|-|-|
+	  a b c d e f g h
+	 -----------------
+
+	 
+
+	8X8 ruudustik, kus oleks ilusasti näha etturite asukohti
+	saaks välja printida umbes nii:
+//NB, see ei pruugi olla õigesti kirjutatud, vaid on mõeldud illustreerivaks kujutuseks.
+	System.out.println("-----------------");
+	for(int i=0; i<8;i++){
+		#ArrayList<String> rida# = #ArrayList<String>#.get(i);
+		for(int j =0;j<8<j++){
+			System.out.print("|" + rida.get(j));
+		}
+		System.out.println();
+	}
+	System.out.println("-----------------");
+
+Esimene for-tsükkel käsitleks read, teine for-tsükkel reasisesed elemendid.
+
+
+	2) Notatsioonisüsteem
+		Valge		Must
+	1.	e4		d5
+	2.	exd5
+	
+	Selgitus:1. Valge käib etturiga väljale e4, Must käib etturiga väljale d5
+		 2. e-liini ettur lööb väljale d5.
+
+-----------------------------------------------------------------------------------------
+
+
+
+2. Programmi tingimuste vastamine:
+	1*Programm käsitleb inimlikku tegevust (Obvious, ei pea sellele mõtlema)
+
+	2*Peab kasutajalt midagi küsima (See above)
+
+	3*Peaks olema kasutatav ilma, et programmi kohta oleks erilisi eelteadmisi
+	Vajadusel annab vajaliku üldtutvustava lühiinfo(Enamik vist ikka tunnevad malet,
+	kuid sellel tuleks kindlasti öelda siis ette, mis on eesmärgiks
+	*ehk saada üks etturitest teisele poolele*)
+
+	4*Programm peab sisaldama juhusliku suuruse kasutamist, v.a erialaste andmete
+	töötlemisel (Peaks olema lahendatav, kui teeme A.I, vastasel juhul võib välja
+	mõelda vabanduse, miks 2 mängijat ei vajaks seda)
+
+	5*Programm peab koosnema mitmest klassist (sh. peaklass). 
+	Andmete kasutamine peaks käima erinevate objektide abil. 
+	Selleks loodud klassid peaksid sisaldama isendivälju, 
+	konstruktoreid, get- ja set-meetodeid ja teisi vajalikke meetodeid. 
+	(Tõenäoliselt saaks eraldi klassifailil luua isendid, 
+	konstruktorid malendite jaoks,
+	nt tühi malendiruut = "-" ja musta või valge etturid "m" ja "v".)
+	
+	6*Programm peab olema rühmaliikmete endi kirjutatud. (:D)
+
+	7*Programm peab olema mõistlikult kommenteeritud. (:D)
+
+	8*Programm ei tohiks olla liiga keeruline. (keegi võiks defineerida sõna
+	*keeruline* praeguses seisus, see tundub mitte liiga keeruline...
+	...aga samas ka mitte).
+		
+	9*Kasutajaga suhtlemine peaks olema väga elementaarselt kujundatud.(:D)
+
+
+3. Okei... malendite reeglid...
+
+	1) Etturid saavad liikuda 1 käik edasi, v.a juhul, kui teine ettur on ees.
+	   See saab olla nii enda kui vastase ettur.
+	
+	2) Etturid saavad liikuda 2 käiku edasi ainult siis, kui nad on oma esialgsel
+	   positsioonil (äkki boolean kontroll? või mingi != väärtuse kontroll), v.a
+	   juhul, kui 1 või 2 ruutu tema ees on teine ettur.
+
+	3) Diagonaalselt ründamine on ainult siis võimalik, kui vastase ettur asub
+	   diagonaalselt tema ees (ehk siis kontrollib, kas 1 arrayrida edasi
+	   asub kas i+1 või i-1 vastasmalend, kui jah, on võimalik rünnata.)
+
+	4) Kui edukalt vastase malend maha lüüa, kaob see jäädavalt väljakult
+	   (võib-olla, et malendite valimine põhineb sellel, kas kuskil asub 
+	   mängijale kuuluv täht)
+
+	5) Pärast igat käiku vahetatakse seda, kumb pool käib.
+	   (Saaks äkki boolean kaudu lahendada, True oleks valge ja False must)
+
+	6) En passant - kui malenupp asub enda poolel 5-ndal real, ja siis vastane
+	   käib 2 käiku edasi, on järgmisel ja ainult järgmisel käigul erandina
+	   võimalik seda maha võtta, et vastane ei saaks mööda hiilida malenditega.
+
+	7) Kui ühel poolel pole enam ettureid või teine pool saab endale lipu, lõppeb
+	   mäng ära.
+
+	8) Kui malend on valitud, siis programm kontrollib kõik võimalikud liigutused(äärepealsete malendite puhul ei tohiks
+	olla võimalik sellel väljapoole väljakut rünnata, seega veateate vältimiseks tuleks midagi teha, et ta ei läheks listidest
+	välja kontrolli käigus). Juhul, kui malendiga pole midagi võimalik teha, annab programm sellest teada ja lubab uue malendi valida.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
