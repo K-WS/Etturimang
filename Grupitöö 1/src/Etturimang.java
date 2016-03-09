@@ -26,7 +26,9 @@ public class Etturimang {
 				//While tsükkel, mis kestab niikaua, kui mängija pole oma käiku sisestanud.
 				while(kaik == 1){System.out.println("Sisesta käik, valge ");
 				String a = sc.nextLine().toUpperCase();
-				if(a == "Restart"){malelaud.restart();break;}
+				
+				if(a.equals("RESTART")){praegune_mang = false;break;}
+				
 				boolean b = ref.Assess(a);
 				if (b==true){
 					malelaud.liigutus(a);
@@ -56,8 +58,12 @@ public class Etturimang {
 			boolean onVastus = true;
 			while(onVastus){
 				String arg = sc.nextLine();
-				if(arg.equals("jah")){onVastus = false;}
-				//tee klassi Malelaud uus meetod, mis "restardib" malendite ja laua algseisu, ja kasuta seda siin arg.equals("jah") korral.
+				if(arg.equals("jah")){
+					onVastus = false;
+					malelaud = new Malelaud();
+					praegune_mang = true;
+				}
+				
 				else if(arg.equals("ei")){onVastus = false; kas_mangid_edasi = false;}}
 		}		
 	}

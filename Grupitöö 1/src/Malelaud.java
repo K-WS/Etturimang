@@ -62,6 +62,4 @@ public class Malelaud {
 		return laud.get(th).get(Math.abs(nr-8)); 
 	}
 	
-	
-	public void restart(){laud = create();}
 }
