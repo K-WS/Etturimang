@@ -1,5 +1,6 @@
 package mainPackage;
 
+
 public class Player {
 	
 	private int pawnsLeft;
@@ -9,6 +10,10 @@ public class Player {
 		}
 	
 	private int points;
+		public int getPoints() 
+		{ 
+			return points; 
+		}
 	
 	public String color;
 	

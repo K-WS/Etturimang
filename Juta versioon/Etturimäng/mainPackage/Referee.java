@@ -1,5 +1,4 @@
 package mainPackage;
-import java.util.Random;
 
 public class Referee {
 
@@ -19,7 +18,7 @@ public class Referee {
 		whitePlayer = white;
 		blackPlayer = black;
 		gameNr = 0;
-		turn = 0;//(byte)new Random().nextInt(2);
+		turn = 1;
 		switch (turn)
 		{
 			case 0: color = "m"; break;
@@ -54,11 +53,13 @@ public class Referee {
 	private void checkEnPassant() 
 	{
 		if ( 	Math.abs(c2i(lastMove, 1) - c2i(lastMove, 3)) == 2 
-				 &&	Math.abs(letterVal(c2s(lastMove, 2)) - letterVal(th1)) == 1)
-			{
-				if ((turn==1 && nr1 - c2i(lastMove, 3) == 1) ||
-					(turn==1 && c2i(lastMove, 3) - nr1 == 1))		enPassant = true;
-			}
+				 &&	Math.abs(letterVal(c2s(lastMove, 2)) - letterVal(th1)) == 1
+				 && nr1 == c2i(lastMove, 3)		)				
+		{
+			enPassant = true;
+			gameBoard.enPassant(turn==1? true : false);
+			say("* en passant olukord *");
+		}
 	}
 	//
 	//Kõigepealt kontrollitakse sisendi süntaktilist korrektsust
@@ -93,17 +94,17 @@ public class Referee {
 	//Rünnaku korral kontrollitakse selle legaalsust. 
 	private boolean isLegalAttack(){
 		say("Rünnak");
-		if (Math.abs(letterVal(th2)-letterVal(th1)) != 1) {say("Rünnata saab ainult 1 ruudu võrra diagonaalis."); return false;} ;
+		if ( Math.abs(letterVal(th2)-letterVal(th1)) != 1) {say("Rünnata saab ainult 1 ruudu võrra diagonaalis."); return false;} ;
 		
 		
 		if (turn == 0 && 
-				((!enPassant && nr1 < nr2 && nr2-nr1 == 1) || (enPassant && nr2 < nr1 && nr1-nr2 == 1)))
+				((!enPassant && nr1 < nr2 && nr2-nr1 == 1) || (enPassant && nr2 == nr1)))
 		{
 			if (whitePlayer.getPawnsLeft()==0) {endReached = true; blackPlayer.wonTheMatch();}
 			return true;
 		}
 		if (turn == 1 && 
-				((!enPassant && nr2 < nr1 && nr1-nr2 == 1) || (enPassant && nr1 < nr2 && nr2-nr1 == 1)))
+				((!enPassant && nr2 < nr1 && nr1-nr2 == 1) || (enPassant && nr1 == nr2)))
 		{
 			if (blackPlayer.getPawnsLeft()==0) {endReached = true; whitePlayer.wonTheMatch();}
 			return true;
@@ -164,8 +165,6 @@ public class Referee {
 		//Reeglitundmise kontroll
 		if (isAttackMove() && isLegalAttack()) 
 		{
-			//TODO!
-			//gameBoard.liigutus(input)
 			switch(turn)
 			{
 				case 0: whitePlayer.pawnKilled(); break;
@@ -176,8 +175,6 @@ public class Referee {
 		} 
 		if (!isAttackMove() && isLegalMove()) 
 		{
-			//TODO!
-			//gameBoard.liigutus(input)
 			lastMove = input;
 			return true;
 		}
