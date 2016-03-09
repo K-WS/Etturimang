@@ -1,0 +1,37 @@
+package mainPackage;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class BoardHacks 
+{
+	HashMap<String, ArrayList<String>> laud;
+	
+	ArrayList<String> tahehoius;
+	
+	protected void hackMove(String input)
+	{
+		liigutus(input);
+	}
+	
+	protected void hackSweep()
+	{
+		for(String ltr : tahehoius)
+		{
+			for(int i = 0; i<8; i++)
+			{
+				laud.get(ltr).set(i, " ");
+			}
+		}
+	};
+	
+	protected void hackPawns(Player p)
+	{
+		while(p.getPawnsLeft()!=0)
+		{
+			p.pawnKilled();
+		}
+	}
+	
+	public void liigutus(String kask){};
+}

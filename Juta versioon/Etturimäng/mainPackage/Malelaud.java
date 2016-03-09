@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 public class Malelaud {
 	
+	//Väli, mis osaleb en passant olukorra lahendamises
 	private boolean[] enPassant = {false, false};
 		public void enPassant(boolean leftToRight){
 			System.out.println("Malelaud.enPassant()");
@@ -13,42 +14,34 @@ public class Malelaud {
 			enPassant[1] = leftToRight;
 		}
 	
+	//Sõnastik, mis esindab malendite asukohti malelaual
 	HashMap<String, ArrayList<String>> laud;
+	
+	//Loend, mis sisaldab tähti A-H
 	public ArrayList<String> tahehoius = new ArrayList<>();
 	
-	public Malelaud() {
+	public Malelaud() 
+	{
 		tahehoius.addAll(Arrays.asList("A","B","C","D","E","F","G","H"));
-		laud = create();
-		
+		laud = createBoard();
 	}
 	
-	HashMap<String, ArrayList<String>> create(){
-	ArrayList<String> malerida = new ArrayList<>();
-	malerida.addAll(Arrays.asList(" ", "v", " ", " ", " ", " ", "m", " "));
+	//Abistav meetod Malelaua loomisele
+	HashMap<String, ArrayList<String>> createBoard()
+	{
+		ArrayList<String> malerida = new ArrayList<>();
+		malerida.addAll(Arrays.asList(" ", "v", " ", " ", " ", " ", "m", " "));
 		
-	HashMap <String,ArrayList<String>> Malelauakatse = new HashMap<>();
-	
-	ArrayList<String> Rida_1 = new ArrayList<>(malerida);
-	ArrayList<String> Rida_2 = new ArrayList<>(malerida);
-	ArrayList<String> Rida_3 = new ArrayList<>(malerida);
-	ArrayList<String> Rida_4 = new ArrayList<>(malerida);
-	ArrayList<String> Rida_5 = new ArrayList<>(malerida);
-	ArrayList<String> Rida_6 = new ArrayList<>(malerida);
-	ArrayList<String> Rida_7 = new ArrayList<>(malerida);
-	ArrayList<String> Rida_8 = new ArrayList<>(malerida);
+		HashMap <String,ArrayList<String>> Malelauakatse = new HashMap<>();
 
-	
-		Malelauakatse.put("A", Rida_1);
-		Malelauakatse.put("B", Rida_2);
-		Malelauakatse.put("C", Rida_3);
-		Malelauakatse.put("D", Rida_4);
-		Malelauakatse.put("E", Rida_5);
-		Malelauakatse.put("F", Rida_6);
-		Malelauakatse.put("G", Rida_7);
-		Malelauakatse.put("H", Rida_8);
+		for (int i = 0; i<8; i++)
+		{
+			Malelauakatse.put(tahehoius.get(i), new ArrayList<>(malerida));
+		}
 		return Malelauakatse;
 	}
 	
+	//Tavapärane toString, mis tagastab malelaua praeguse seisu konsoolile
 	public String toString(){
 		
 		String nr = "   8|7|6|5|4|3|2|1\n";
@@ -63,51 +56,54 @@ public class Malelaud {
 		return nr;
 	}
 	
+	//Meetod, mis lõikab korrektse stringi tükkideks, ning selle põhjal muudab malelaua välimust.
 	public void liigutus(String kask){
 		String th1 = Character.toString(kask.charAt(0));
 		int nr1 = Math.abs(Character.getNumericValue(kask.charAt(1)) -8);
 		String th2 = Character.toString(kask.charAt(2));
 		int nr2 = Math.abs(Character.getNumericValue(kask.charAt(3))-8);
 		
-		
-		String p = laud.get(th1).get(nr1);
+		String pawn = laud.get(th1).get(nr1);
 		laud.get(th1).set(nr1," ");
-		laud.get(th2).set(nr2, p);
+		laud.get(th2).set(nr2, pawn);
 		
-		if (enPassant[0]) {
+		if (enPassant[0]) 
+		{
 			boolean leftToRight = enPassant[1];
-			System.out.println("liigutus()__enPassant==true");
-			p = laud.get(th2).get(nr2);
+			pawn = laud.get(th2).get(nr2);
 			laud.get(th2).set(nr2," ");
 			
 					
-			laud.get(th2).set(nr2 + (leftToRight? 1 : (-1)), p);
+			laud.get(th2).set(nr2 + (leftToRight? 1 : (-1)), pawn);
 			enPassant[0] = false;
 		}
 		
-		System.out.println(toString());
-		
-		
-		
+		System.out.println(toString());		
 	}
 	
+	//Meetod, mis tagastab malendi asukoha
 	public String getPawn(String th, int nr) 
 	{ 
 		return laud.get(th).get(Math.abs(nr-8)); 
 	}
-	
-	
-	public void restart(){
-		for(int i = 0; i<8; i++){
-			/*Malelauakatse.put("A", Rida_1);
-			Malelauakatse.put("B", Rida_2);
-			Malelauakatse.put("C", Rida_3);
-			Malelauakatse.put("D", Rida_4);
-			Malelauakatse.put("E", Rida_5);
-			Malelauakatse.put("F", Rida_6);
-			Malelauakatse.put("G", Rida_7);
-			Malelauakatse.put("H", Rida_8);
-			*/
+
+	//Häkkimismeetodid kiireks testimiseks
+	public void hackSquare(String input, String color)
+	{
+		String th1 = Character.toString(input.charAt(0));
+		int nr1 = Math.abs(Character.getNumericValue(input.charAt(1))-8);
+		laud.get(th1).set(nr1, color);
+	}
+	public void hackSweep()
+	{
+		for(String ltr : tahehoius)
+		{
+			for(int i = 0; i<8; i++)
+			{
+				laud.get(ltr).set(i, " ");
+			}
 		}
 	}
+
+	
 }	

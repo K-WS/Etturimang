@@ -1,0 +1,15 @@
+package mainPackage;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class BoardHacks
+{
+	HashMap<String, ArrayList<String>> laud;
+	
+	public static ArrayList<String> tahehoius;
+	
+	
+	
+	public void liigutus(String kask){};
+}
+

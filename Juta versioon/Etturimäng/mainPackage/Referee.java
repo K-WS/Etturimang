@@ -2,45 +2,45 @@ package mainPackage;
 
 public class Referee {
 
-	// Kohtunikul on viited malelauale ja mängijatele; 
-	Malelaud gameBoard;
+	// Kohtunikul on viited malelauale ja mängijatele, kuid ta ei muuda kunagi nende olekut (vahetult); 
+	static Malelaud gameBoard;
 	Player whitePlayer, blackPlayer;
 	
 	// Samuti haldab see klass muutuvaid mänguparameetreid (v.a laua seisund)
-	byte gameNr, turn;
+	byte turn;
 	String color, th1, th2, lastMove;
 	int nr1, nr2;
-	boolean endReached = false, enPassant = false;
+	boolean endReached, enPassant;
 	
 	//Konstruktor
 	public Referee(Malelaud board, Player white, Player black ){
 		gameBoard = board;
 		whitePlayer = white;
 		blackPlayer = black;
-		gameNr = 0;
 		turn = 1;
-		switch (turn)
-		{
-			case 0: color = "m"; break;
-			case 1: color = "v"; break;
-		}
+		color = "v";
+		endReached = false; 
+		enPassant = false;
 	}
 	
 	
 	////Mõned lühendatud nimetusega teisendusmeetodid
 	//
 	//char-2-String teisendus
-	private String c2s(String str, int i){
+	public static String c2s(String str, int i)
+	{
 		return Character.toString(str.charAt(i));
 	}
 	
 	//char-2-int teisendus
-	private int c2i(String str, int i){
+	public static int c2i(String str, int i)
+	{
 		return Character.getNumericValue(str.charAt(i));
 	}
 	
-	//Tähe indeks reas "ABCDEFGH"
-	private int letterVal(String s){
+	//Tähe "väärtus" ehk indeks reas "ABCDEFGH" (vajalik vahetult kõrvuti olevate ridade kindlakstegemisel)
+	public static int letterVal(String s)
+	{
 		return gameBoard.tahehoius.indexOf(s);
 	}
 	
@@ -58,72 +58,116 @@ public class Referee {
 		{
 			enPassant = true;
 			gameBoard.enPassant(turn==1? true : false);
-			say("* en passant olukord *");
 		}
 	}
 	//
 	//Kõigepealt kontrollitakse sisendi süntaktilist korrektsust
-	private boolean isCorrectFormat(String input){
-		if (input.length() != 4) {say("Sisendi pikkus peab olema täpselt 4 märki! "); return false; }
-		else if (!input.matches("[a-hA-H][1-8][a-hA-H][1-8]")) {say("Sisend ebakorrektne!");return false;}
-		else if (input.charAt(0) == input.charAt(2) && input.charAt(1) == input.charAt(3)) {say("Ei tohi käia samale ruudule!");return false;}
+	private boolean isCorrectFormat(String input)
+	{
+		if (input.length() != 4) 
+		{
+			say("Sisendi pikkus peab olema täpselt 4 märki! Sisestage midagi muud."); 
+			return false; 
+		}
+		else if (!input.matches("[a-hA-H][1-8][a-hA-H][1-8]")) 
+		{
+			say("Selline sisend ei tähista käiku. Sisestage midagi muud.");
+			return false;
+		}
+		else if (input.charAt(0) == input.charAt(2) && input.charAt(1) == input.charAt(3)) 
+		{
+			say("Ei tohi käia samale ruudule! Sisestage muu käik. ");
+			return false;
+		}
 		return true;
 	}
 	//
 	//Seejärel kontrollitakse, kas vaadeldav ettur on käiva mängija oma. 
 	private boolean isMyPawn()
 	{				
-		if (gameBoard.getPawn(th1, nr1) != color) {say("Käia tohib ainult oma etturiga. Teie omad on tähistatud "+color+"-tähega.");return false;}
+		if (gameBoard.getPawn(th1, nr1) != color) 
+		{
+			say("Käia tohib ainult oma etturiga. Teie omad on tähistatud "+color+"-tähega. Sisestage muu käik. ");
+			return false;
+		}
 		return true;
 	}
 	//
 	//Siis kontrollitakse, kas sihtruudul juba on sama värvi ettur.
-	private boolean isSquareOccupied(){
+	private boolean isSquareOccupied()
+	{
 		String square = gameBoard.getPawn(th2, nr2);
-		if (square == color) {say("Sihtruudul juba on teie ettur.");return true;} 
+		if (square == color) 
+		{
+			say("Sihtruudul juba on teie ettur. Sisestage muu käik.");
+			return true;
+		} 
 		return false;
 	}
 	//
 	//Tehakse kindlaks, kas tegemist on rünnaku või tavalise liikumisega. 
-	private boolean isAttackMove(){
+	private boolean isAttackMove()
+	{
 		String square = gameBoard.getPawn(th2, nr2);		
 		if (square != " ") return true;
 		return false;
 	}
 	//
 	//Rünnaku korral kontrollitakse selle legaalsust. 
-	private boolean isLegalAttack(){
-		say("Rünnak");
-		if ( Math.abs(letterVal(th2)-letterVal(th1)) != 1) {say("Rünnata saab ainult 1 ruudu võrra diagonaalis."); return false;} ;
-		
+	private boolean isLegalAttack()
+	{	
+		if ( Math.abs(letterVal(th2)-letterVal(th1)) != 1) 
+		{
+			say("Rünnata saab ainult 1 ruudu võrra diagonaalis. Sisestage muu käik."); 
+			return false;
+		}
 		
 		if (turn == 0 && 
 				((!enPassant && nr1 < nr2 && nr2-nr1 == 1) || (enPassant && nr2 == nr1)))
 		{
-			if (whitePlayer.getPawnsLeft()==0) {endReached = true; blackPlayer.wonTheMatch();}
+			whitePlayer.pawnKilled();
+			if (whitePlayer.getPawnsLeft()==0) 
+			{
+				say("Must võitis!"); 
+				endReached = true; 
+				blackPlayer.wonTheMatch();
+			}
 			return true;
 		}
 		if (turn == 1 && 
 				((!enPassant && nr2 < nr1 && nr1-nr2 == 1) || (enPassant && nr1 == nr2)))
 		{
-			if (blackPlayer.getPawnsLeft()==0) {endReached = true; whitePlayer.wonTheMatch();}
+			blackPlayer.pawnKilled();
+			if (blackPlayer.getPawnsLeft()==0) 
+			{
+				say("Valge võitis!");
+				endReached = true; 
+				whitePlayer.wonTheMatch();
+			}
 			return true;
 		}
-		say("Sinna ei ole lubatud rünnata!");
+		say("Sinna ei ole lubatud rünnata! Sisestage muu käik.");
 		return false;
 	}
 	//
 	//Tavaliikumise korral samuti. Ühtlasi teeb kindlaks, kas ettur on lipuks saanud. 
-	private boolean isLegalMove(){
-		say("Tavakäik");
-		if (letterVal(th1)!=letterVal(th2)) {say("Ründamata saab käia ainult sirgjooneliselt.");return false; }
+	private boolean isLegalMove()
+	{
+		if (letterVal(th1)!=letterVal(th2))
+		{
+			say("Ründamata saab käia ainult sirgjooneliselt. Sisestage muu käik.");
+			return false; 
+		}
 		
 		if (turn == 0 && (
 				nr2 > nr1 && (
 						(nr2 != 1 && nr2-nr1 == 1) || nr2-nr1 <= 2) )) 
 		{
-			if (nr2 == 8) endReached = true;
-			blackPlayer.wonTheMatch();
+			if (nr2 == 8) {
+				endReached = true;
+				say("Must võitis!");
+				blackPlayer.wonTheMatch();
+			}
 			return true;
 		}
 		
@@ -131,12 +175,16 @@ public class Referee {
 				nr1 > nr2 && (
 						(nr1 != 1 && nr1-nr2 == 1) || nr1-nr2 <= 2) )) 
 		{
-			if (nr2 == 1) endReached = true;
-			whitePlayer.wonTheMatch();
+			if (nr2 == 1) 
+			{
+				endReached = true;
+				say("Valge võitis!");
+				whitePlayer.wonTheMatch();
+			}
 			return true;
 		}
 		
-		say("Sinna ei ole lubatud käia!");
+		say("Sinna ei ole lubatud käia! Sisestage muu käik.");
 		return false;
 	}
 
@@ -181,14 +229,10 @@ public class Referee {
 		return false;
 	}
 	
-	public void nextTurn(){
+	public void nextTurn()
+	{
 		turn = (byte)((turn + 1) % 2);
 		enPassant = false;
-		switch (turn)
-		{
-			case 0: color = "m"; break;
-			case 1: color = "v"; break;
-		}
 	}
 
 	public boolean gameOver()

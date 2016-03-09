@@ -1,0 +1,53 @@
+package unitTests;
+
+import java.util.Scanner;
+
+import mainPackage.Malelaud;
+import mainPackage.Player;
+import mainPackage.Referee;
+
+public class Etturimang_UnitTest {
+
+	public static void main(String[] args) 
+	{
+		Scanner sc = new Scanner(System.in);
+		int kaik = 1;
+		String sisend;
+		
+		Malelaud malelaud = new Malelaud();
+		Player valge = new Player();
+		Player must = new Player();
+		Referee ref = new Referee(malelaud, valge, must);
+		
+		System.out.println(malelaud);
+
+		boolean praegune_mang = true;
+	
+		while(praegune_mang)
+		{
+			System.out.println("Sisestage käik, "+(kaik==1? "valge" : "must"));
+			boolean refLubab = false;
+			
+			do
+			{
+				sisend = sc.nextLine().toUpperCase();
+				refLubab = ref.Assess(sisend);
+				if(refLubab) 
+				{ 
+					malelaud.liigutus(sisend);
+					praegune_mang = !ref.gameOver();
+					if(praegune_mang) 
+					{	
+						kaik = (kaik+1)%2;
+						ref.nextTurn(); 
+					}		
+				}
+			}
+			while(!refLubab);
+		}
+		
+		System.out.println("Valge lõpp-punktid: "+valge.getPoints()+", Musta lõpp-punktid: "+must.getPoints());
+	}
+}
+
+
