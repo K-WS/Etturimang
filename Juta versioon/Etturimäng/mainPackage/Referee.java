@@ -2,7 +2,7 @@ package mainPackage;
 
 public class Referee {
 
-	// Kohtunikul on viited malelauale ja mängijatele, kuid ta ei muuda kunagi nende olekut (vahetult); 
+	// Kohtunikul on viited malelauale ja mängijatele, kuid ta ei muuda kunagi nende olekut (vahetult).
 	static Malelaud gameBoard;
 	Player whitePlayer, blackPlayer;
 	
@@ -31,13 +31,13 @@ public class Referee {
 	{
 		return Character.toString(str.charAt(i));
 	}
-	
+	//
 	//char-2-int teisendus
 	public static int c2i(String str, int i)
 	{
 		return Character.getNumericValue(str.charAt(i));
 	}
-	
+	//
 	//Tähe "väärtus" ehk indeks reas "ABCDEFGH" (vajalik vahetult kõrvuti olevate ridade kindlakstegemisel)
 	public static int letterVal(String s)
 	{
@@ -49,7 +49,7 @@ public class Referee {
 	////Järgnevad 7 meetodit on käigu õigsusekontrolli sammud nende rakendamise järjekorras. 
 	//
 	//
-	//Abikontroll, mis teeb kindlaks, kas tegemist on erandliku olukorraga. 
+	//Abikontroll, mis teeb kindlaks, kas tegemist on erandliku en passant olukorraga. 
 	private void checkEnPassant() 
 	{
 		if ( 	Math.abs(c2i(lastMove, 1) - c2i(lastMove, 3)) == 2 
@@ -161,7 +161,7 @@ public class Referee {
 		
 		if (turn == 0 && (
 				nr2 > nr1 && (
-						(nr2 != 1 && nr2-nr1 == 1) || nr2-nr1 <= 2) )) 
+						(nr2 != 1 && nr2-nr1 == 1) || (nr2-nr1 <= 2 && nr2==1)) )) 
 		{
 			if (nr2 == 8) {
 				endReached = true;
@@ -229,13 +229,80 @@ public class Referee {
 		return false;
 	}
 	
+	public void tieCheck()
+	{
+		int pairCount = 0;
+		int stuckCount = 0;
+		for (String ltr : gameBoard.tahehoius) 
+		{
+			for (int i = 8; i>1; i--)
+			{
+				String square = gameBoard.getPawn(ltr, i);
+				String neighbour = gameBoard.getPawn(ltr, i-1);
+				if ((square.equals("v") 
+						&& neighbour.equals("m") 
+						&& !canAttack(ltr, i, "v") 
+						&& !canAttack(ltr, i-1, "m"))) pairCount++;
+				
+				else if ((square.equals("v") 
+						&& neighbour.equals("v") 
+						&& !canAttack(ltr, i, "v")
+						) || (
+						square.equals("m") 
+						&& neighbour.equals("m") 
+						&& !canAttack(ltr, i-1, "m"))) stuckCount++;
+			}
+		}
+		if (stuckCount+(pairCount*2) == whitePlayer.getPawnsLeft() + blackPlayer.getPawnsLeft()) 
+		{ 
+			say("Mängijad jäid viiki! ");
+			endReached = true; 
+		}
+	}
+	
+	private boolean canAttack(String th, int nr, String color) 
+	{
+		boolean d1 = false;
+		boolean d2 = false;
+		//say("sisend "+th+nr+color);
+		/*say("arvutus "+gameBoard.getPawn(gameBoard.tahehoius.get(
+				letterVal(th)+(letterVal(th)>0? -1 : 1)), 
+				nr +(color=="v"? -1 : 1)));*/
+		if(letterVal(th)>0 && Math.abs(nr-8)<7 && color.equals("v") && gameBoard.getPawn(gameBoard.tahehoius.get(letterVal(th)-1), nr-1).equals("m"))
+		{
+			//say("valge; ülemine diagonaal on "+gameBoard.tahehoius.get(letterVal(th)-1)+(nr+1));
+			d1 = true; 
+		}
+		if(letterVal(th)>0 && Math.abs(nr-8)>0 && color.equals("m") && gameBoard.getPawn(gameBoard.tahehoius.get(letterVal(th)-1), nr+1).equals("v"))
+		{
+			//say("must; ülemine diagonaal on "+gameBoard.tahehoius.get(letterVal(th)-1)+(nr-1));
+			d1 = true; 
+		}
+		if(letterVal(th)<7 && Math.abs(nr-8)<7 && color.equals("v") && gameBoard.getPawn(gameBoard.tahehoius.get(letterVal(th)+1), nr-1).equals("m"))
+		{
+			//say("valge; alumine diagonaal on "+gameBoard.tahehoius.get(letterVal(th)+1)+(nr+1));
+			d2 = true; 
+		}
+		if(letterVal(th)<7 && Math.abs(nr-8)>0 && color.equals("m") && gameBoard.getPawn(gameBoard.tahehoius.get(letterVal(th)+1), nr+1).equals("v"))
+		{
+			//say("must; alumine diagonaal on "+gameBoard.tahehoius.get(letterVal(th)+1)+(nr-1));
+			d2 = true; 
+		}
+		
+		if(d1 || d2) 
+			return true;
+		//say("ei ole diagonaale");
+		return false;
+	}
+	
 	public void nextTurn()
 	{
 		turn = (byte)((turn + 1) % 2);
+		color = turn==1? "v" : "m";
 		enPassant = false;
 	}
 
-	public boolean gameOver()
+	public boolean isGameOver()
 	{
 		if (endReached) return true;
 		

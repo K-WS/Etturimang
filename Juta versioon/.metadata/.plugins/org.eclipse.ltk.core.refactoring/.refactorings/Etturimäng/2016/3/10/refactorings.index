@@ -3,3 +3,6 @@
 1457554967034	Rename type 'Hacks'
 1457557525830	Delete element
 1457559184846	Rename method 'hackMove'
+1457559865528	Rename type 'Etturimang_UnitTest'
+1457559890387	Rename type 'Referee_UnitTest'
+1457617818947	Rename method 'gameOver'

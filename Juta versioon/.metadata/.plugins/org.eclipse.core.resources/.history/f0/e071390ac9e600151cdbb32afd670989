@@ -1,0 +1,91 @@
+package mainPackage;
+import java.util.Scanner;
+
+public class Etturimang {
+	
+	private static void tutvustaMangu() 
+	{
+		System.out.println("Etturimäng: ");
+		System.out.println("1.Käigu sisestamine");
+		System.out.println("    Vastavalt sellele, kelle käik on praegu, tuleb kirjutada neljasümboline string");
+		System.out.println("    näiteks A7A6, kus esimesed 2 sümbolit tähistavad malendi esialgset asukohta");
+		System.out.println("    ja viimased 2 asukohta, kuhu soovid liigutada oma etturit.");
+		System.out.println();
+		System.out.println("2.Mängu ülesanne");
+		System.out.println("    jõuda ühe oma etturitega lõpuni välja, või võtta maha kõik vastase etturid.");
+		System.out.println("Kõikide muude reeglite poolest käib see samamoodi nagu tavaline male.");
+		System.out.println();
+	}
+	
+	public static void main(String[] args) {
+		
+		tutvustaMangu();
+		
+		Scanner sc = new Scanner(System.in);
+		int kaik = 1;
+		String sisend;
+		
+		Malelaud malelaud = new Malelaud();
+		Player valge = new Player();
+		Player must = new Player();
+		Referee ref = new Referee(malelaud, valge, must);
+		
+		System.out.println(malelaud);
+		boolean kas_mangid_edasi = true;
+		
+		//While-tsükkel, mis kestab niikaua, kuni mängija enam ei taha mängida.
+		while(kas_mangid_edasi)
+		{
+			boolean praegune_mang = true;
+			
+			//While tsükkel, mis kestab niikaua, kuni mäng saab läbi
+			while(praegune_mang)
+			{
+				System.out.println("Sisestage käik, "+(kaik==1? "valge" : "must"));
+				boolean refLubab = false;
+				
+				do
+				{
+					sisend = sc.nextLine().toUpperCase();
+					refLubab = ref.Assess(sisend);
+					if(refLubab) 
+					{ 
+						malelaud.liigutus(sisend);
+						ref.tieCheck();
+						praegune_mang = !ref.isGameOver();	//mäng jätkub, kui kohtunik ei ütle vastupidist
+						if(praegune_mang) 
+						{	
+							kaik = (kaik+1)%2; 				//mängu jätkudes on mõtet käiku vahetada
+							ref.nextTurn(); 
+						}		
+					}
+				}
+				while(!refLubab); 		//tsüklit korratakse, kuni kohtunik sisendi heaks kiidab
+			}
+			
+			System.out.println("Valge lõpp-punktid: "+valge.getPoints()+", Musta lõpp-punktid: "+must.getPoints());
+			System.out.println("Kas soovid edasi mängida? (jah/ei)");
+			boolean onVastus = true;
+			while(onVastus)
+			{
+				String arg = sc.nextLine();
+				if(arg.equals("jah"))
+				{
+					onVastus = false;
+					malelaud = new Malelaud();
+					ref = new Referee(malelaud, valge, must);
+					praegune_mang = true;
+					System.out.println(malelaud);
+					valge.resetPawnsLeft();
+					must.resetPawnsLeft();
+				}
+				else if(arg.equals("ei"))
+				{
+					onVastus = false; 
+					kas_mangid_edasi = false;
+					sc.close();
+				}
+			}
+		}		
+	}
+}

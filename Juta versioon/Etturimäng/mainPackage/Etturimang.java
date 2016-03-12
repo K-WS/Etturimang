@@ -51,10 +51,12 @@ public class Etturimang {
 					if(refLubab) 
 					{ 
 						malelaud.liigutus(sisend);
-						praegune_mang = !ref.gameOver();	//mäng jätkub, kui kohtunik ei ütle vastupidist
+						ref.tieCheck();
+						praegune_mang = !ref.isGameOver();	//mäng jätkub, kui kohtunik ei ütle vastupidist
 						if(praegune_mang) 
 						{	
 							kaik = (kaik+1)%2; 				//mängu jätkudes on mõtet käiku vahetada
+							System.out.println(kaik);
 							ref.nextTurn(); 
 						}		
 					}
