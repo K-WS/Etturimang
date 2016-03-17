@@ -56,7 +56,7 @@ public class Malelaud {
 		return nr;
 	}
 	
-	//Meetod, mis lõikab korrektse (eelnevalt kohtuniku klassist läbi käinud) stringi tükkideks, ning selle põhjal muudab malelaua välimust.
+	//Meetod, mis lõikab korrektse stringi tükkideks, ning selle põhjal muudab malelaua välimust.
 	public void liigutus(String kask){
 		String th1 = Character.toString(kask.charAt(0));
 		int nr1 = Math.abs(Character.getNumericValue(kask.charAt(1)) -8);
@@ -87,18 +87,13 @@ public class Malelaud {
 		return laud.get(th).get(Math.abs(nr-8)); 
 	}
 
-	
-	////Häkkimismeetodid kiireks testimiseks
-	//
-	//meetod, mis asetab soovitud malendi soovitud ruudule
+	//Häkkimismeetodid kiireks testimiseks
 	public void hackSquare(String input, String color)
 	{
 		String th1 = Character.toString(input.charAt(0));
 		int nr1 = Math.abs(Character.getNumericValue(input.charAt(1))-8);
 		laud.get(th1).set(nr1, color);
 	}
-	//
-	//meetod, mis teeb malelaua täiesti tühjaks
 	public void hackSweep()
 	{
 		for(String ltr : tahehoius)

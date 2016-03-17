@@ -1,13 +1,14 @@
 package mainPackage;
 import java.util.Scanner;
 
-
-//Põhiklass
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Etturimang.
+ */
 public class Etturimang {
 	
 	/**
-	 * Tutvusta mangu - meetod, mis trükib tutvustavad laused mängu alguses. 
-	 * Otsene vajadus selleks puudub, kuid selle abil saab koodi paremini liigendada. 
+	 * Tutvusta mangu - meetod, mis trükib tutvustavad laused. Otsene vajadus selleks puudub, kuid selle abil saab koodi paremini liigendada. 
 	 */
 	private static void tutvustaMangu() 
 	{

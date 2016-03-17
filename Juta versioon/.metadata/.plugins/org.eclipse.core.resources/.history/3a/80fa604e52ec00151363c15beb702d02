@@ -53,8 +53,6 @@ public class Etturimang_TieTest
 				}
 			}
 			System.out.println("Valge lõpp-punktid: "+valge.getPoints()+", Musta lõpp-punktid: "+must.getPoints());
-			
-			//Juhul kui soovite teha mitu identset mängu järjest, tuleb luua uued isendid (või taastada isendiväljade algseis)
 			if (repeat>1) 
 			{	malelaud = new Malelaud();
 				ref = new Referee(malelaud, valge, must);

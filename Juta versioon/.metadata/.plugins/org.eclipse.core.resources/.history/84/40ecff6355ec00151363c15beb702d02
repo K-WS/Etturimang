@@ -16,7 +16,6 @@ public class Referee {
 	int nr1, nr2;
 	boolean endReached, enPassant;
 	
-	
 	//Konstruktor
 	public Referee(Malelaud board, Player white, Player black ){
 		gameBoard = board;
@@ -47,13 +46,6 @@ public class Referee {
 	public static int letterVal(String s)
 	{
 		return gameBoard.tahehoius.indexOf(s);
-	}
-	
-	
-	//Lühendatud signatuuriga System.out.println() meetod. Vastab rohkem reaalsusele, sest kohtunik "ütleb" asju. 
-	private void say(String sentence) 
-	{
-		System.out.println(sentence);
 	}
 	
 	
@@ -98,7 +90,7 @@ public class Referee {
 		}
 	
 	
-	////Järgnevad 7 meetodit on peameetodi sammud nende rakendamise järjekorras. 
+	////Järgnevad 7 meetodit on käigu õigsusekontrolli sammud nende rakendamise järjekorras. 
 	//
 	//
 	//Abikontroll, mis teeb kindlaks, kas tegemist on erandliku en passant olukorraga. 
@@ -241,7 +233,8 @@ public class Referee {
 	}
 
 	
-	//Viigiseisu kontrollimise meetod
+	
+	
 	public void tieCheck()
 	{
 		int pairCount = 0;
@@ -273,7 +266,6 @@ public class Referee {
 		}
 	}
 	
-	//Rünnaku võimalikkuse kontroll; on abiks viigiseisu kindlakstegemisel. 
 	private boolean canAttack(String th, int nr, String color) 
 	{
 		boolean d1 = false;
@@ -309,7 +301,6 @@ public class Referee {
 		return false;
 	}
 	
-	//Meetod, mis teavitab kohtunikku käiguvahetusest. Käivitatakse põhiklassist. 
 	public void nextTurn()
 	{
 		turn = (byte)((turn + 1) % 2);
@@ -317,7 +308,6 @@ public class Referee {
 		enPassant = false;
 	}
 
-	//Meetod, mille abil kohtunikult küsitakse (põhiklassist), kas mäng on läbi. 
 	public boolean isGameOver()
 	{
 		if (endReached) return true;
@@ -325,4 +315,8 @@ public class Referee {
 		return false;
 	}
 
+	public void say(String sentence) 
+	{
+		System.out.println(sentence);
+	}
 }

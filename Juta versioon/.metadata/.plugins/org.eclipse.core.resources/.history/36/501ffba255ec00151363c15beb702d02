@@ -16,7 +16,6 @@ public class Referee {
 	int nr1, nr2;
 	boolean endReached, enPassant;
 	
-	
 	//Konstruktor
 	public Referee(Malelaud board, Player white, Player black ){
 		gameBoard = board;
@@ -51,10 +50,11 @@ public class Referee {
 	
 	
 	//Lühendatud signatuuriga System.out.println() meetod. Vastab rohkem reaalsusele, sest kohtunik "ütleb" asju. 
-	private void say(String sentence) 
+	public void say(String sentence) 
 	{
 		System.out.println(sentence);
 	}
+	
 	
 	
 	//Peamine meetod, mille kaudu kohtunik kontrollib, kas kasutaja poolt
@@ -317,7 +317,7 @@ public class Referee {
 		enPassant = false;
 	}
 
-	//Meetod, mille abil kohtunikult küsitakse (põhiklassist), kas mäng on läbi. 
+	//Meetod, mille abil kohtunikult küsitakse, kas mäng on läbi. 
 	public boolean isGameOver()
 	{
 		if (endReached) return true;

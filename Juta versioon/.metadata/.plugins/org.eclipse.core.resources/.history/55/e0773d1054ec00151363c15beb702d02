@@ -35,7 +35,6 @@ public class Etturimang_PointsForReachVictoryTest
 				System.out.println(malelaud);
 				boolean praegune_mang = true;
 			
-				//Lühendatud versioon põhiklassi mängutsüklist
 				while(praegune_mang)
 				{	
 					for(String pseudoInput : kaigud)

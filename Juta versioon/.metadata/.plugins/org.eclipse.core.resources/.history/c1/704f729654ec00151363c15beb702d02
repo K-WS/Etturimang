@@ -5,7 +5,6 @@ import mainPackage.Referee;
 
 public class Etturimang_PointsForCleanVictoryTest {
 	//Klass, kus testitakse võiduolukorda, kus üks mängija võtab maha kõik vastase etturid. 
-	//Selgitusi vt antud package'i analoogilistest klassidest.
 	
 	static String[] kaigud = {"A7B6"};
 

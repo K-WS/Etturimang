@@ -24,9 +24,6 @@ public class Etturimang_PointsForReachVictoryTest
 
 			for(int repeat = 3; repeat > 0; repeat--)
 			{
-				
-				//Antud olukorras asetame valge etturi ääre lähedale ja teostame tema viimase käigu
-				//Vajalik on ka vähemalt ühe musta etturi olemasolu, muidu oleks valge juba võitnud. 
 				malelaud.hackSweep();
 				malelaud.hackSquare("A2","v");
 				malelaud.hackSquare("B6","m");
@@ -35,7 +32,6 @@ public class Etturimang_PointsForReachVictoryTest
 				System.out.println(malelaud);
 				boolean praegune_mang = true;
 			
-				//Lühendatud versioon põhiklassi mängutsüklist
 				while(praegune_mang)
 				{	
 					for(String pseudoInput : kaigud)
@@ -45,7 +41,6 @@ public class Etturimang_PointsForReachVictoryTest
 						praegune_mang = !ref.isGameOver();
 					}
 				}
-				
 				System.out.println("Valge lõpp-punktid: "+valge.getPoints()+", Musta lõpp-punktid: "+must.getPoints());
 				if (repeat>1) 
 				{	malelaud = new Malelaud();

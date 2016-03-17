@@ -1,9 +1,5 @@
 package mainPackage;
 
-//Klass, millele söödetakse sisse kasutaja sisend ning saadakse vastu true või false - kas käik on lubatud või mitte. 
-//Enne kohtuniku "jaatavat" vastust ei hakatagi malendite asukohti muutma. 
-//Samuti hoolitseb kohtunik mängijatele punktide jagamise ning järelejäänud etturite arvu aktuaalsuse eest. 
-
 public class Referee {
 
 	// Kohtunikul on viited malelauale ja mängijatele, kuid ta ei muuda kunagi nende olekut (vahetult).
@@ -15,7 +11,6 @@ public class Referee {
 	String color, th1, th2, lastMove;
 	int nr1, nr2;
 	boolean endReached, enPassant;
-	
 	
 	//Konstruktor
 	public Referee(Malelaud board, Player white, Player black ){
@@ -50,55 +45,8 @@ public class Referee {
 	}
 	
 	
-	//Lühendatud signatuuriga System.out.println() meetod. Vastab rohkem reaalsusele, sest kohtunik "ütleb" asju. 
-	private void say(String sentence) 
-	{
-		System.out.println(sentence);
-	}
 	
-	
-	//Peamine meetod, mille kaudu kohtunik kontrollib, kas kasutaja poolt
-		//sisestatud käik on lubatud. Tegevus koosneb mitmest sammust. 
-		//Kui kontrolli käigus üks samm nurjub, siis ei ole käik võimalik. 
-	public boolean Assess(String input) 
-		{
-			
-			//Lollusevastane kontroll
-			if (!isCorrectFormat(input)) return false; 
-			
-			//Sisendi lahtimõtestamine
-			th1 = c2s(input, 0);
-			nr1 = c2i(input, 1);
-			th2 = c2s(input, 2);
-			nr2 = c2i(input, 3);
-			
-			//Näpuvigade-vastane kontroll
-			if(!isMyPawn() || isSquareOccupied()) return false;
-			
-			//Erandikontroll
-			if (lastMove != null) checkEnPassant();
-			
-			//Reeglitundmise kontroll
-			if (isAttackMove() && isLegalAttack()) 
-			{
-				switch(turn)
-				{
-					case 0: whitePlayer.pawnKilled(); break;
-					case 1: blackPlayer.pawnKilled(); break;
-				}
-				lastMove = input;
-				return true;
-			} 
-			if (!isAttackMove() && isLegalMove()) 
-			{
-				lastMove = input;
-				return true;
-			}
-			return false;
-		}
-	
-	
-	////Järgnevad 7 meetodit on peameetodi sammud nende rakendamise järjekorras. 
+	////Järgnevad 7 meetodit on käigu õigsusekontrolli sammud nende rakendamise järjekorras. 
 	//
 	//
 	//Abikontroll, mis teeb kindlaks, kas tegemist on erandliku en passant olukorraga. 
@@ -241,7 +189,46 @@ public class Referee {
 	}
 
 	
-	//Viigiseisu kontrollimise meetod
+	//Peamine meetod, mille kaudu kohtunik kontrollib, kas kasutaja poolt
+	//sisestatud käik on lubatud. Tegevus koosneb mitmest sammust. 
+	//Kui kontrolli käigus üks samm nurjub, siis ei ole käik võimalik. 
+	public boolean Assess(String input) 
+	{
+		
+		//Lollusevastane kontroll
+		if (!isCorrectFormat(input)) return false; 
+		
+		//Sisendi lahtimõtestamine
+		th1 = c2s(input, 0);
+		nr1 = c2i(input, 1);
+		th2 = c2s(input, 2);
+		nr2 = c2i(input, 3);
+		
+		//Näpuvigade-vastane kontroll
+		if(!isMyPawn() || isSquareOccupied()) return false;
+		
+		//Erandikontroll
+		if (lastMove != null) checkEnPassant();
+		
+		//Reeglitundmise kontroll
+		if (isAttackMove() && isLegalAttack()) 
+		{
+			switch(turn)
+			{
+				case 0: whitePlayer.pawnKilled(); break;
+				case 1: blackPlayer.pawnKilled(); break;
+			}
+			lastMove = input;
+			return true;
+		} 
+		if (!isAttackMove() && isLegalMove()) 
+		{
+			lastMove = input;
+			return true;
+		}
+		return false;
+	}
+	
 	public void tieCheck()
 	{
 		int pairCount = 0;
@@ -273,7 +260,6 @@ public class Referee {
 		}
 	}
 	
-	//Rünnaku võimalikkuse kontroll; on abiks viigiseisu kindlakstegemisel. 
 	private boolean canAttack(String th, int nr, String color) 
 	{
 		boolean d1 = false;
@@ -309,7 +295,6 @@ public class Referee {
 		return false;
 	}
 	
-	//Meetod, mis teavitab kohtunikku käiguvahetusest. Käivitatakse põhiklassist. 
 	public void nextTurn()
 	{
 		turn = (byte)((turn + 1) % 2);
@@ -317,7 +302,6 @@ public class Referee {
 		enPassant = false;
 	}
 
-	//Meetod, mille abil kohtunikult küsitakse (põhiklassist), kas mäng on läbi. 
 	public boolean isGameOver()
 	{
 		if (endReached) return true;
@@ -325,4 +309,8 @@ public class Referee {
 		return false;
 	}
 
+	public void say(String sentence) 
+	{
+		System.out.println(sentence);
+	}
 }

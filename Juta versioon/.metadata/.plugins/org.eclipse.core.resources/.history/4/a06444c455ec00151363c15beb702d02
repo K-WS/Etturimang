@@ -6,8 +6,7 @@ import java.util.Scanner;
 public class Etturimang {
 	
 	/**
-	 * Tutvusta mangu - meetod, mis trükib tutvustavad laused mängu alguses. 
-	 * Otsene vajadus selleks puudub, kuid selle abil saab koodi paremini liigendada. 
+	 * Tutvusta mangu - meetod, mis trükib tutvustavad laused. Otsene vajadus selleks puudub, kuid selle abil saab koodi paremini liigendada. 
 	 */
 	private static void tutvustaMangu() 
 	{

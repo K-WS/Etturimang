@@ -16,7 +16,6 @@ public class Referee {
 	int nr1, nr2;
 	boolean endReached, enPassant;
 	
-	
 	//Konstruktor
 	public Referee(Malelaud board, Player white, Player black ){
 		gameBoard = board;
