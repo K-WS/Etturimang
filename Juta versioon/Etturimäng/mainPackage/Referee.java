@@ -213,7 +213,7 @@ public class Referee {
 		
 		if (turn == 0 && (
 				nr2 > nr1 && (
-						(nr2 != 1 && nr2-nr1 == 1) || (nr2-nr1 <= 2 && nr2==1)) )) 
+						(nr1 != 1 && nr2-nr1 == 1) || (nr2-nr1 <= 2 && nr1==1)) )) 
 		{
 			if (nr2 == 8) {
 				endReached = true;
@@ -225,7 +225,7 @@ public class Referee {
 		
 		if (turn == 1 && (
 				nr1 > nr2 && (
-						(nr1 != 1 && nr1-nr2 == 1) || nr1-nr2 <= 2) )) 
+						(nr1 != 1 && nr1-nr2 == 1) || (nr1-nr2 <= 2 && nr1==1)) ))
 		{
 			if (nr2 == 1) 
 			{
